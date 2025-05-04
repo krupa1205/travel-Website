@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travel Guidance System</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <nav>
+    <div>
+        <a href="blog.html">NEXT</a>
+    </div>
+</nav>
+    <style>
+        :root {
+            --primary: #3498db;
+            --secondary: #2ecc71;
+            --accent: #e74c3c;
+            --dark: #2c3e50;
+            --light: #ecf0f1;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 1rem 2rem;
+            text-align: center;
+            box-shadow: var(--shadow);
+            position: relative;
+            z-index: 100;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .search-section {
+            background-color: white;
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            margin-bottom: 2rem;
+            position: relative;
+            z-index: 10;
+            transform: translateY(-50px);
+            animation: fadeInUp 0.5s ease-out forwards;
+        }
+        
+        .search-form {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+        
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        label {
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--dark);
+        }
+        
+        input, select {
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+        
+        input:focus, select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+        }
+        
+        button {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s;
+            align-self: flex-end;
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+        
+        .results-section {
+            display: none;
+            animation: fadeIn 0.5s ease-out;
+        }
+        
+        .results-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .destination-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: all 0.3s;
+        }
+        
+        .destination-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        .card-image {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+        
+        .card-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background-color: var(--accent);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        .card-content {
+            padding: 1.5rem;
+        }
+        
+        .card-content h3 {
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
+        
+        .card-rating {
+            color: #f39c12;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .card-description {
+            color: #7f8c8d;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+        
+        .card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 1rem;
+            border-top: 1px solid #eee;
+        }
+        
+        .card-price {
+            font-weight: 700;
+            color: var(--primary);
+            font-size: 1.2rem;
+        }
+        
+        .card-button {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+        }
+        
+        .card-button:hover {
+            background-color: #2980b9;
+        }
+        
+        .more-suggestions {
+            margin-top: 3rem;
+            display: none;
+        }
+        
+        .suggestions-slider {
+            display: flex;
+            gap: 1rem;
+            overflow-x: auto;
+            padding: 1rem 0;
+            scroll-snap-type: x mandatory;
+        }
+        
+        .suggestion-item {
+            min-width: 250px;
+            background-color: white;
+            border-radius: 10px;
+            padding: 1rem;
+            box-shadow: var(--shadow);
+            scroll-snap-align: start;
+            transition: all 0.3s;
+        }
+        
+        .suggestion-item:hover {
+            transform: translateY(-5px);
+        }
+        
+        .suggestion-item h4 {
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .suggestion-item i {
+            color: var(--primary);
+        }
+        
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 2rem;
+        }
+        
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            border-radius: 50%;
+            border-top-color: var(--primary);
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem;
+        }
+        
+        .country-filter {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+        
+        .country-btn {
+            padding: 0.5rem 1rem;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            background-color: white;
+        }
+        
+        .country-btn.active {
+            background-color: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+         nav a {
+            text-decoration: none;
+            color: #006994;
+            margin: 0 15px;
+            font-weight: 600;
+            transition: all 0.3s;
+            position: relative;
+        }
+        
+        nav a:hover {
+            color: #003d66;
+        }
+        
+        nav a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 5px;
+            right: 0;
+            background-color: #006994;
+            transition: width 0.3s;
+        }
+        
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @media (max-width: 768px) {
+            .search-form {
+                grid-template-columns: 1fr;
+            }
+            
+            .results-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .search-section {
+                transform: translateY(-30px);
+            }
+            
+            .country-filter {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Travel Guidance System</h1>
+        <p>Discover your perfect destination with personalized recommendations</p>
+    </header>
+    
+    <div class="container">
+        <section class="search-section">
+            <form id="travelSearchForm" class="search-form">
+                <div class="form-group">
+                    <label for="destination">Destination</label>
+                    <input type="text" id="destination" placeholder="Where do you want to go?">
+                </div>
+                
+                <div class="form-group">
+                    <label for="travelDate">Travel Date</label>
+                    <input type="date" id="travelDate">
+                </div>
+                
+                <div class="form-group">
+                    <label for="travelType">Travel Type</label>
+                    <select id="travelType">
+                        <option value="">Any Type</option>
+                        <option value="beach">Beach Vacation</option>
+                        <option value="mountain">Mountain Getaway</option>
+                        <option value="city">City Break</option>
+                        <option value="adventure">Adventure</option>
+                        <option value="cultural">Cultural Experience</option>
+                        <option value="historical">Historical</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="budget">Budget</label>
+                    <select id="budget">
+                        <option value="">Any Budget</option>
+                        <option value="low">Budget ($)</option>
+                        <option value="medium">Mid-Range ($$)</option>
+                        <option value="high">Luxury ($$$)</option>
+                    </select>
+                </div>
+                
+                <button type="submit">Search</button>
+            </form>
+        </section>
+        
+        <div class="loading" id="loadingIndicator">
+            <div class="spinner"></div>
+            <p>Finding the best travel options for you...</p>
+        </div>
+        
+        <section class="results-section" id="resultsSection">
+            <div class="results-header">
+                <h2>Recommended Destinations</h2>
+                <div id="resultsCount">Showing 0 results</div>
+            </div>
+            
+            <div class="country-filter" id="countryFilter">
+                <div class="country-btn active" data-country="all">All Countries</div>
+                <div class="country-btn" data-country="india">India</div>
+                <div class="country-btn" data-country="turkey">Turkey</div>
+                <div class="country-btn" data-country="america">America</div>
+            </div>
+            
+            <div class="results-grid" id="resultsGrid">
+                <!-- Results will be inserted here by JavaScript -->
+            </div>
+            
+            <div class="more-suggestions" id="moreSuggestions">
+                <h3>More Suggestions Based on Your Preferences</h3>
+                <div class="suggestions-slider" id="suggestionsSlider">
+                    <!-- More suggestions will be inserted here -->
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const travelForm = document.getElementById('travelSearchForm');
+            const resultsSection = document.getElementById('resultsSection');
+            const resultsGrid = document.getElementById('resultsGrid');
+            const loadingIndicator = document.getElementById('loadingIndicator');
+            const moreSuggestions = document.getElementById('moreSuggestions');
+            const suggestionsSlider = document.getElementById('suggestionsSlider');
+            const resultsCount = document.getElementById('resultsCount');
+            const countryFilter = document.getElementById('countryFilter');
+            const countryBtns = document.querySelectorAll('.country-btn');
+            
+            // Destination data for India, Turkey, and America
+            const destinations = [
+                // India destinations
+                {
+                    id: 1,
+                    name: "Goa, India",
+                    country: "india",
+                    type: "beach",
+                    budget: "medium",
+                    image: "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4",
+                    rating: 4.7,
+                    description: "Famous for its pristine beaches, vibrant nightlife, and Portuguese heritage.",
+                    price: 800,
+                    duration: "5 days",
+                    badge: "Popular"
+                },
+                {
+                    id: 2,
+                    name: "Jaipur, India",
+                    country: "india",
+                    type: "cultural",
+                    budget: "medium",
+                    image: "https://images.unsplash.com/photo-1532375810709-75b1da00537c",
+                    rating: 4.6,
+                    description: "The Pink City known for its magnificent forts, palaces, and rich history.",
+                    price: 650,
+                    duration: "4 days",
+                    badge: "Cultural"
+                },
+                {
+                    id: 3,
+                    name: "Himalayas, India",
+                    country: "india",
+                    type: "mountain",
+                    budget: "low",
+                    image: "https://tse4.mm.bing.net/th?id=OIP.Ccfn0VkO_UJmct4RREKtdgHaE8&pid=Api&P=0&h=220",
+                    rating: 4.8,
+                    description: "Majestic mountain range offering trekking, spirituality, and breathtaking views.",
+                    price: 500,
+                    duration: "7 days",
+                    badge: "Adventure"
+                },
+                {
+                    id: 4,
+                    name: "Kerala, India",
+                    country: "india",
+                    type: "beach",
+                    budget: "medium",
+                    image: "https://tse2.mm.bing.net/th?id=OIP.43_GFOjKVHmwZKSXvBJWSAHaFj&pid=Api&P=0&h=220",
+                    rating: 4.7,
+                    description: "Serene backwaters, lush greenery, and Ayurvedic wellness retreats.",
+                    price: 900,
+                    duration: "6 days",
+                    badge: "Wellness"
+                },
+                {
+                    id: 5,
+                    name: "Varanasi, India",
+                    country: "india",
+                    type: "historical",
+                    budget: "low",
+                    image: "https://images.unsplash.com/photo-1566438480900-0609be27a4be",
+                    rating: 4.5,
+                    description: "Spiritual capital of India with ancient temples and Ganges river rituals.",
+                    price: 400,
+                    duration: "3 days",
+                    badge: "Sacred"
+                },
+                
+                // Turkey destinations
+                {
+                    id: 6,
+                    name: "Istanbul, Turkey",
+                    country: "turkey",
+                    type: "cultural",
+                    budget: "medium",
+                    image: "https://images.unsplash.com/photo-1524231757912-21f4fe3a7200",
+                    rating: 4.8,
+                    description: "Where East meets West with stunning mosques, bazaars, and the Bosphorus.",
+                    price: 950,
+                    duration: "5 days",
+                    badge: "Cultural"
+                },
+                {
+                    id: 7,
+                    name: "Cappadocia, Turkey",
+                    country: "turkey",
+                    type: "adventure",
+                    budget: "medium",
+                    image: "https://images.unsplash.com/photo-1513889961551-628c1e5e2ee9",
+                    rating: 4.9,
+                    description: "Fairy chimneys, cave hotels, and unforgettable hot air balloon rides.",
+                    price: 1100,
+                    duration: "4 days",
+                    badge: "Unique"
+                },
+                {
+                    id: 8,
+                    name: "Antalya, Turkey",
+                    country: "turkey",
+                    type: "beach",
+                    budget: "medium",
+                    image: "https://images.unsplash.com/photo-1514282401047-d79a71a590e8",
+                    rating: 4.7,
+                    description: "Turquoise coast with ancient ruins, luxury resorts, and stunning beaches.",
+                    price: 1000,
+                    duration: "5 days",
+                    badge: "Beach"
+                },
+                {
+                    id: 9,
+                    name: "Pamukkale, Turkey",
+                    country: "turkey",
+                    type: "historical",
+                    budget: "low",
+                    image: "https://tse3.mm.bing.net/th?id=OIP.8uwFMozfO5c7T02C5qq8PwHaE7&pid=Api&P=0&h=220",
+                    rating: 4.6,
+                    description: "White travertine terraces with thermal waters and ancient Hierapolis ruins.",
+                    price: 700,
+                    duration: "2 days",
+                    badge: "Natural"
+                },
+                {
+                    id: 10,
+                    name: "Ephesus, Turkey",
+                    country: "turkey",
+                    type: "historical",
+                    budget: "low",
+                    image: "https://tse4.mm.bing.net/th?id=OIP.i7460rBdpQf7Bm351tkO9AHaFZ&pid=Api&P=0&h=220",
+                    rating: 4.7,
+                    description: "One of the best-preserved ancient cities in the Mediterranean region.",
+                    price: 600,
+                    duration: "1 day",
+                    badge: "Archaeology"
+                },
+                
+                // America destinations
+                {
+                    id: 11,
+                    name: "New York City, USA",
+                    country: "america",
+                    type: "city",
+                    budget: "high",
+                    image: "https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9",
+                    rating: 4.8,
+                    description: "The city that never sleeps with iconic landmarks, museums, and Broadway.",
+                    price: 2000,
+                    duration: "5 days",
+                    badge: "Iconic"
+                },
+                {
+                    id: 12,
+                    name: "Grand Canyon, USA",
+                    country: "america",
+                    type: "adventure",
+                    budget: "medium",
+                    image: "https://images.unsplash.com/photo-1509316785289-025f5b846b35",
+                    rating: 4.9,
+                    description: "Breathtaking natural wonder with hiking trails and helicopter tours.",
+                    price: 1200,
+                    duration: "3 days",
+                    badge: "Natural"
+                },
+                {
+                    id: 13,
+                    name: "Miami, USA",
+                    country: "america",
+                    type: "beach",
+                    budget: "high",
+                    image: "https://images.unsplash.com/photo-1514214246283-d427a95c5d2f",
+                    rating: 4.6,
+                    description: "Vibrant nightlife, art deco architecture, and beautiful beaches.",
+                    price: 1800,
+                    duration: "4 days",
+                    badge: "Luxury"
+                },
+                {
+                    id: 14,
+                    name: "Yellowstone, USA",
+                    country: "america",
+                    type: "adventure",
+                    budget: "medium",
+                    image: "https://tse2.mm.bing.net/th?id=OIP.11-3kUJnJK5TtNCzEXQ_IgHaEo&pid=Api&P=0&h=220",
+                    rating: 4.9,
+                    description: "First national park with geysers, hot springs, and diverse wildlife.",
+                    price: 1500,
+                    duration: "5 days",
+                    badge: "Wilderness"
+                },
+                {
+                    id: 15,
+                    name: "San Francisco, USA",
+                    country: "america",
+                    type: "city",
+                    budget: "high",
+                    image: "https://images.unsplash.com/photo-1501594907352-04cda38ebc29",
+                    rating: 4.7,
+                    description: "Golden Gate Bridge, Alcatraz, and iconic cable cars in a hilly landscape.",
+                    price: 1900,
+                    duration: "4 days",
+                    badge: "Scenic"
+                }
+            ];
+            
+            // More suggestions data
+            const moreSuggestionsData = [
+                // India suggestions
+                {
+                    name: "Rajasthan, India",
+                    country: "india",
+                    type: "cultural",
+                    icon: "fa-fort-awesome",
+                    description: "Land of kings with majestic forts, palaces, and desert landscapes."
+                },
+                {
+                    name: "Mumbai, India",
+                    country: "india",
+                    type: "city",
+                    icon: "fa-city",
+                    description: "Bollywood, Gateway of India, and vibrant street food scene."
+                },
+                {
+                    name: "Ladakh, India",
+                    country: "india",
+                    type: "adventure",
+                    icon: "fa-mountain",
+                    description: "High-altitude desert with Buddhist monasteries and stunning landscapes."
+                },
+                {
+                    name: "Taj Mahal, India",
+                    country: "india",
+                    type: "historical",
+                    icon: "fa-monument",
+                    description: "Iconic white marble mausoleum and one of the Wonders of the World."
+                },
+                
+                // Turkey suggestions
+                {
+                    name: "Bodrum, Turkey",
+                    country: "turkey",
+                    type: "beach",
+                    icon: "fa-umbrella-beach",
+                    description: "Azure waters, ancient ruins, and vibrant nightlife on the Aegean coast."
+                },
+                {
+                    name: "Troy, Turkey",
+                    country: "turkey",
+                    type: "historical",
+                    icon: "fa-history",
+                    description: "Ancient city famous for the Trojan War and legendary wooden horse."
+                },
+                {
+                    name: "Mount Ararat, Turkey",
+                    country: "turkey",
+                    type: "mountain",
+                    icon: "fa-mountain",
+                    description: "Legendary snow-capped volcano where Noah's Ark is said to have landed."
+                },
+                
+                // America suggestions
+                {
+                    name: "Las Vegas, USA",
+                    country: "america",
+                    type: "city",
+                    icon: "fa-dice",
+                    description: "Entertainment capital with world-class shows, casinos, and nightlife."
+                },
+                {
+                    name: "Hawaii, USA",
+                    country: "america",
+                    type: "beach",
+                    icon: "fa-water",
+                    description: "Volcanic islands with stunning beaches, surfing, and luau feasts."
+                },
+                {
+                    name: "New Orleans, USA",
+                    country: "america",
+                    type: "cultural",
+                    icon: "fa-music",
+                    description: "Birthplace of jazz with French Quarter charm and Creole cuisine."
+                }
+            ];
+            
+            // Current filter state
+            let currentFilters = {
+                destination: '',
+                travelType: '',
+                budget: '',
+                country: 'all'
+            };
+            
+            // Form submission
+            travelForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                searchDestinations();
+            });
+            
+            // Country filter buttons
+            countryBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    countryBtns.forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    currentFilters.country = this.dataset.country;
+                    searchDestinations();
+                });
+            });
+            
+            // Main search function
+            function searchDestinations() {
+                // Get form values
+                currentFilters.destination = document.getElementById('destination').value.toLowerCase();
+                currentFilters.travelType = document.getElementById('travelType').value;
+                currentFilters.budget = document.getElementById('budget').value;
+                
+                // Show loading indicator
+                loadingIndicator.style.display = 'block';
+                resultsSection.style.display = 'none';
+                moreSuggestions.style.display = 'none';
+                
+                // Simulate API call with timeout
+                setTimeout(() => {
+                    // Filter destinations based on search criteria
+                    let filteredDestinations = filterDestinations();
+                    
+                    // Display results
+                    displayResults(filteredDestinations);
+                    
+                    // Generate more suggestions
+                    generateMoreSuggestions();
+                    
+                    // Hide loading indicator
+                    loadingIndicator.style.display = 'none';
+                }, 800);
+            }
+            
+            // Filter destinations based on current filters
+            function filterDestinations() {
+                let filtered = destinations;
+                
+                // Filter by country
+                if (currentFilters.country !== 'all') {
+                    filtered = filtered.filter(d => 
+                        d.country === currentFilters.country);
+                }
+                
+                // Filter by destination name
+                if (currentFilters.destination) {
+                    filtered = filtered.filter(d => 
+                        d.name.toLowerCase().includes(currentFilters.destination));
+                }
+                
+                // Filter by travel type
+                if (currentFilters.travelType) {
+                    filtered = filtered.filter(d => 
+                        d.type === currentFilters.travelType);
+                }
+                
+                // Filter by budget
+                if (currentFilters.budget) {
+                    filtered = filtered.filter(d => 
+                        d.budget === currentFilters.budget);
+                }
+                
+                return filtered;
+            }
+            
+            // Display search results
+            function displayResults(results) {
+                resultsGrid.innerHTML = '';
+                
+                if (results.length === 0) {
+                    resultsGrid.innerHTML = `
+                        <div style="grid-column: 1/-1; text-align: center; padding: 2rem;">
+                            <h3>No destinations found matching your criteria</h3>
+                            <p>Try adjusting your search filters or browse our suggestions below</p>
+                        </div>
+                    `;
+                    resultsSection.style.display = 'block';
+                    resultsCount.textContent = "Showing 0 results";
+                    return;
+                }
+                
+                results.forEach(destination => {
+                    const card = document.createElement('div');
+                    card.className = 'destination-card animate__animated animate__fadeIn';
+                    card.innerHTML = `
+                        <div class="card-image" style="background-image: url('${destination.image}')">
+                            ${destination.badge ? `<span class="card-badge">${destination.badge}</span>` : ''}
+                        </div>
+                        <div class="card-content">
+                            <h3>${destination.name}</h3>
+                            <div class="card-rating">
+                                ${generateStars(destination.rating)}
+                                <span>${destination.rating}</span>
+                            </div>
+                            <p class="card-description">${destination.description}</p>
+                            <div class="card-footer">
+                                <div>
+                                    <div class="card-price">$${destination.price}</div>
+                                    <small>${destination.duration}</small>
+                                </div>
+                                <button class="card-button">View Details</button>
+                            </div>
+                        </div>
+                    `;
+                    resultsGrid.appendChild(card);
+                });
+                
+                // Update results count
+                resultsCount.textContent = `Showing ${results.length} ${results.length === 1 ? 'result' : 'results'}`;
+                
+                // Show results section
+                resultsSection.style.display = 'block';
+            }
+            
+            // Generate more suggestions based on filters
+            function generateMoreSuggestions() {
+                suggestionsSlider.innerHTML = '';
+                
+                let filteredSuggestions = moreSuggestionsData;
+                
+                // Filter by country if not 'all'
+                if (currentFilters.country !== 'all') {
+                    filteredSuggestions = moreSuggestionsData.filter(s => 
+                        s.country === currentFilters.country);
+                }
+                
+                // Filter by travel type if specified
+                if (currentFilters.travelType) {
+                    filteredSuggestions = filteredSuggestions.filter(s => 
+                        s.type === currentFilters.travelType);
+                    
+                    // If not enough suggestions for this type, add some random ones
+                    if (filteredSuggestions.length < 4) {
+                        const otherSuggestions = moreSuggestionsData
+                            .filter(s => s.type !== currentFilters.travelType)
+                            .slice(0, 4 - filteredSuggestions.length);
+                        filteredSuggestions = [...filteredSuggestions, ...otherSuggestions];
+                    }
+                }
+                
+                // If still no suggestions, show random ones
+                if (filteredSuggestions.length === 0) {
+                    filteredSuggestions = moreSuggestionsData.slice(0, 4);
+                }
+                
+                filteredSuggestions.forEach(suggestion => {
+                    const item = document.createElement('div');
+                    item.className = 'suggestion-item';
+                    item.innerHTML = `
+                        <h4><i class="fas ${suggestion.icon}"></i> ${suggestion.name}</h4>
+                        <p>${suggestion.description}</p>
+                    `;
+                    suggestionsSlider.appendChild(item);
+                });
+                
+                // Show more suggestions section if we have results
+                if (filteredSuggestions.length > 0) {
+                    moreSuggestions.style.display = 'block';
+                }
+            }
+            
+            // Generate star rating HTML
+            function generateStars(rating) {
+                const fullStars = Math.floor(rating);
+                const hasHalfStar = rating % 1 >= 0.5;
+                let stars = '';
+                
+                for (let i = 0; i < fullStars; i++) {
+                    stars += '<i class="fas fa-star"></i>';
+                }
+                
+                if (hasHalfStar) {
+                    stars += '<i class="fas fa-star-half-alt"></i>';
+                }
+                
+                const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
+                for (let i = 0; i < emptyStars; i++) {
+                    stars += '<i class="far fa-star"></i>';
+                }
+                
+                return stars;
+            }
+            
+            // Add click event to all destination cards
+            document.addEventListener('click', function(e) {
+                if (e.target.classList.contains('card-button')) {
+                    const card = e.target.closest('.destination-card');
+                    const destinationName = card.querySelector('h3').textContent;
+                    alert(`You selected ${destinationName}! In a real app, this would show detailed information about this destination.`);
+                }
+            });
+            
+            // Initial search to show some results
+            searchDestinations();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - Your Travel Companion</title>
+    <style>
+        /* Basic styling - customize as needed */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #333;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            
+            /* Background image with overlay */
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
+                        url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            background-attachment: fixed;
+        }
+
+        header {
+            text-align: center;
+            padding: 30px 0;
+            background: linear-gradient(135deg, rgba(255,255,255,0.9), rgba(245,245,245,0.9));
+            border-radius: 8px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            color: #2c3e50;
+            margin: 0;
+        }
+        
+        h2 {
+            color: #3498db;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 5px;
+            margin-top: 30px;
+        }
+        
+        .team-section, .mission-section, .features-section {
+            margin-bottom: 40px;
+        }
+        
+        .team-member {
+            display: inline-block;
+            width: 30%;
+            margin: 1%;
+            vertical-align: top;
+            text-align: center;
+            background: linear-gradient(135deg, rgba(255,255,255,0.9), rgba(245,245,245,0.9));
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        /* Equal height and width for all images */
+        .team-member img, 
+        .payment-methods img {
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 50%;
+            margin-bottom: 15px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        /* Payment icons specific styling */
+        .payment-methods img {
+            border-radius: 0;
+            width: 60px;
+            height: 40px;
+            object-fit: contain;
+        }
+        
+        .feature-card {
+            border: none;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, rgba(255,255,255,0.9), rgba(245,245,245,0.9));
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        .dynamic-content {
+            background: rgba(234, 242, 248, 0.7);
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+        
+        .rating-section, .payment-section {
+            background: linear-gradient(135deg, rgba(255,255,255,0.9), rgba(245,245,245,0.9));
+            padding: 25px;
+            border-radius: 8px;
+            margin-top: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        .star-rating {
+            color: #f39c12;
+            font-size: 24px;
+        }
+        
+        .payment-methods {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .payment-methods img {
+            filter: grayscale(30%);
+            transition: all 0.3s ease;
+        }
+        
+        .payment-methods img:hover {
+            filter: grayscale(0%);
+            transform: scale(1.1);
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 20px;
+            background: linear-gradient(135deg, rgba(44, 62, 80, 0.9), rgba(32, 45, 58, 0.9));
+            color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        button {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        button:hover {
+            background: linear-gradient(135deg, #2980b9, #3498db);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        
+        input, textarea, select {
+            background: rgba(255,255,255,0.8);
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 8px;
+            margin: 5px 0;
+            width: 100%;
+        }
+        
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .team-member {
+                width: 100%;
+                margin: 10px 0;
+                display: block;
+            }
+            
+            .payment-methods {
+                justify-content: center;
+            }
+            
+            .team-member img {
+                width: 120px;
+                height: 120px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Welcome to TravelExplorer</h1>
+        <p>Your trusted companion in discovering the world's wonders</p>
+    </header>
+
+    <section class="mission-section">
+        <h2>Our Mission</h2>
+        <p>At TravelExplorer, we believe that travel should be accessible, enjoyable, and unforgettable. Founded in 2023, our team of passionate globetrotters has made it our mission to provide you with the most comprehensive travel guidance, helping you discover hidden gems and popular destinations alike.</p>
+    </section>
+
+    <section class="team-section">
+        <h2>Meet Our Team</h2>
+        <div class="team-member">
+            <img src="krupa.jpeg" alt="Sarah Johnson">
+            <h3>Krupa Parmar</h3>
+            <p>Founder & CEO</p>
+            <p>With over 3 years in the travel industry, Krupa knows every hidden corner of Europe and Asia.</p>
+        </div>
+        <div class="team-member">
+            <img src="krish.jpeg" alt="Michael Chen">
+            <h3>Krish Chavda</h3>
+            <p>Head of Technology</p>
+            <p>Krish ensures our platform provides the best user experience with cutting-edge features.</p>
+        </div>
+        <div class="team-member">
+            <img src="vaishnavi.jpeg" alt="Emma Rodriguez">
+            <h3>Vaishnavi Vingale</h3>
+            <p>Content Director</p>
+            <p>Vaishnavi and her team create the engaging content that helps you plan your perfect trip.</p>
+        </div>
+    </section>
+
+    <section class="features-section">
+        <h2>What We Offer</h2>
+        
+        <div class="feature-card">
+            <h3>Comprehensive Destination Guides</h3>
+            <div class="dynamic-content" id="destination-guide">
+                <!-- Dynamic content will be loaded here -->
+                <p>Loading our latest destination recommendations...</p>
+            </div>
+        </div>
+        
+        <div class="feature-card">
+            <h3>Travel Blog & Insights</h3>
+            <div class="dynamic-content" id="blog-posts">
+                <!-- Dynamic content will be loaded here -->
+                <p>Loading our most recent blog posts...</p>
+            </div>
+        </div>
+        
+        <div class="feature-card">
+            <h3>Nearby Hotels & Accommodations</h3>
+            <div class="dynamic-content" id="nearby-hotels">
+                <!-- Dynamic content will be loaded here -->
+                <p>Finding hotels near you...</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="rating-section">
+        <h2>What Our Users Say</h2>
+        <div id="user-ratings">
+            <!-- Dynamic ratings will be loaded here -->
+            <div class="star-rating">★★★★★</div>
+            <p>"TravelExplorer helped me plan the perfect trip to Bali!" - Jessica T.</p>
+            <button onclick="loadMoreRatings()">Load More Reviews</button>
+        </div>
+        
+        <h3>Rate Your Experience</h3>
+        <div id="rating-form">
+            <select id="user-rating">
+                <option value="5">★★★★★</option>
+                <option value="4">★★★★☆</option>
+                <option value="3">★★★☆☆</option>
+                <option value="2">★★☆☆☆</option>
+                <option value="1">★☆☆☆☆</option>
+            </select>
+            <textarea id="user-review" placeholder="Share your experience..." rows="3" style="width: 100%; margin: 10px 0;"></textarea>
+            <button onclick="submitRating()">Submit Review</button>
+        </div>
+    </section>
+
+    <section class="payment-section">
+        <h2>Secure Payment Options</h2>
+        <p>We partner with trusted payment providers to ensure your transactions are safe and secure.</p>
+        <div class="payment-methods">
+            <img src="https://cdn-icons-png.flaticon.com/512/196/196578.png" alt="Visa" title="Visa">
+            <img src="https://cdn-icons-png.flaticon.com/512/196/196561.png" alt="Mastercard" title="Mastercard">
+            <img src="https://cdn-icons-png.flaticon.com/512/174/174861.png" alt="PayPal" title="PayPal">
+            <img src="https://cdn-icons-png.flaticon.com/512/179/179457.png" alt="Apple Pay" title="Apple Pay">
+            <img src="https://cdn-icons-png.flaticon.com/512/888/888857.png" alt="Google Pay" title="Google Pay">
+        </div>
+        
+        <div id="payment-status" style="margin-top: 20px;">
+            <!-- Dynamic payment status will be shown here -->
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2023 TravelExplorer. All rights reserved.</p>
+        <p>Contact us: info@travelexplorer.com | +1 (555) 123-4567</p>
+    </footer>
+
+    <script>
+        // This script would be connected to your backend/database
+        // For demonstration, we're using mock data
+        
+        // Load dynamic content when page loads
+        window.onload = function() {
+            loadDestinationGuides();
+            loadBlogPosts();
+            loadNearbyHotels();
+            loadUserRatings();
+        };
+        
+        // Mock function to load destination guides
+        function loadDestinationGuides() {
+            const guides = [
+                { title: "Bali, Indonesia", description: "Discover the island of gods with our comprehensive guide to temples, beaches, and cultural experiences." },
+                { title: "Kyoto, Japan", description: "Explore ancient temples and modern delights in Japan's cultural capital." },
+                { title: "Santorini, Greece", description: "Your guide to the most picturesque island in the Aegean Sea." }
+            ];
+            
+            let html = '<ul>';
+            guides.forEach(guide => {
+                html += `<li><strong>${guide.title}</strong>: ${guide.description} <a href="#">Read more</a></li>`;
+            });
+            html += '</ul><p><a href="#">Explore all destinations</a></p>';
+            
+            document.getElementById('destination-guide').innerHTML = html;
+        }
+        
+        // Mock function to load blog posts
+        function loadBlogPosts() {
+            const posts = [
+                { title: "10 Hidden Beaches in Thailand", date: "May 15, 2023", excerpt: "Discover beaches away from the crowds..." },
+                { title: "Traveling on a Budget: Europe Edition", date: "April 28, 2023", excerpt: "How to experience Europe without breaking the bank..." },
+                { title: "Local Cuisines You Must Try in Mexico", date: "April 10, 2023", excerpt: "Beyond tacos: authentic Mexican dishes to seek out..." }
+            ];
+            
+            let html = '';
+            posts.forEach(post => {
+                html += `<div style="margin-bottom: 15px;">
+                    <h4 style="margin-bottom: 5px;">${post.title}</h4>
+                    <small>${post.date}</small>
+                    <p>${post.excerpt} <a href="#">Continue reading</a></p>
+                </div>`;
+            });
+            html += '<p><a href="#">View all blog posts</a></p>';
+            
+            document.getElementById('blog-posts').innerHTML = html;
+        }
+        
+        // Mock function to load nearby hotels
+        function loadNearbyHotels() {
+            // In a real implementation, this would use geolocation
+            const hotels = [
+                { name: "Grand Plaza Hotel", rating: "4.5", price: "$120", distance: "0.3 miles" },
+                { name: "Seaside Resort", rating: "4.8", price: "$210", distance: "0.7 miles" },
+                { name: "City Center Inn", rating: "3.9", price: "$85", distance: "1.2 miles" }
+            ];
+            
+            let html = '<p>Hotels near your current location:</p><ul>';
+            hotels.forEach(hotel => {
+                html += `<li>
+                    <strong>${hotel.name}</strong> (${'★'.repeat(Math.floor(hotel.rating))}${hotel.rating % 1 ? '☆' : ''})
+                    <br>${hotel.price}/night • ${hotel.distance} away
+                    <button style="margin-left: 10px;" onclick="bookHotel('${hotel.name}')">Book Now</button>
+                </li>`;
+            });
+            html += '</ul><p><a href="#">Show more options</a></p>';
+            
+            document.getElementById('nearby-hotels').innerHTML = html;
+        }
+        
+        // Mock function to load user ratings
+        function loadUserRatings() {
+            const ratings = [
+                { stars: 5, review: "The hotel recommendations were spot on!", user: "Mark S.", date: "2 days ago" },
+                { stars: 4, review: "Great destination guides, helped me plan my itinerary.", user: "Lisa M.", date: "1 week ago" },
+                { stars: 5, review: "Customer service is excellent. Quick responses!", user: "David K.", date: "3 weeks ago" }
+            ];
+            
+            let html = '';
+            ratings.forEach(rating => {
+                html += `<div style="margin-bottom: 15px;">
+                    <div class="star-rating">${'★'.repeat(rating.stars)}${'☆'.repeat(5-rating.stars)}</div>
+                    <p>"${rating.review}" - ${rating.user} <small>(${rating.date})</small></p>
+                </div>`;
+            });
+            
+            document.getElementById('user-ratings').innerHTML = html + 
+                '<button onclick="loadMoreRatings()">Load More Reviews</button>';
+        }
+        
+        // Function to load more ratings
+        function loadMoreRatings() {
+            // In a real implementation, this would fetch more from your database
+            const moreRatings = [
+                { stars: 5, review: "The mobile app makes booking so easy!", user: "Rachel P.", date: "1 month ago" },
+                { stars: 4, review: "Accurate information and beautiful photography.", user: "Thomas W.", date: "2 months ago" }
+            ];
+            
+            let html = '';
+            moreRatings.forEach(rating => {
+                html += `<div style="margin-bottom: 15px;">
+                    <div class="star-rating">${'★'.repeat(rating.stars)}${'☆'.repeat(5-rating.stars)}</div>
+                    <p>"${rating.review}" - ${rating.user} <small>(${rating.date})</small></p>
+                </div>`;
+            });
+            
+            document.getElementById('user-ratings').innerHTML += html;
+        }
+        
+        // Function to submit a new rating
+        function submitRating() {
+            const rating = document.getElementById('user-rating').value;
+            const review = document.getElementById('user-review').value;
+            
+            if (!review) {
+                alert("Please share your experience in the review field.");
+                return;
+            }
+            
+            // In a real implementation, this would send data to your server
+            const newRating = {
+                stars: parseInt(rating),
+                review: review,
+                user: "You",
+                date: "Just now"
+            };
+            
+            let html = `<div style="margin-bottom: 15px;">
+                <div class="star-rating">${'★'.repeat(newRating.stars)}${'☆'.repeat(5-newRating.stars)}</div>
+                <p>"${newRating.review}" - ${newRating.user} <small>(${newRating.date})</small></p>
+            </div>`;
+            
+            document.getElementById('user-ratings').innerHTML = html + document.getElementById('user-ratings').innerHTML;
+            document.getElementById('user-review').value = "";
+            
+            alert("Thank you for your review!");
+        }
+        
+        // Function to simulate hotel booking
+        function bookHotel(hotelName) {
+            document.getElementById('payment-status').innerHTML = `
+                <h3>Book ${hotelName}</h3>
+                <form id="payment-form">
+                    <div style="margin-bottom: 10px;">
+                        <label>Check-in Date: <input type="date" required></label>
+                    </div>
+                    <div style="margin-bottom: 10px;">
+                        <label>Check-out Date: <input type="date" required></label>
+                    </div>
+                    <div style="margin-bottom: 10px;">
+                        <label>Guests: <input type="number" min="1" value="1" required></label>
+                    </div>
+                    <button type="button" onclick="processPayment('${hotelName}')">Proceed to Payment</button>
+                </form>
+            `;
+        }
+        
+        // Function to simulate payment processing
+        function processPayment(hotelName) {
+            // In a real implementation, this would connect to a payment gateway
+            document.getElementById('payment-status').innerHTML = `
+                <div style="color: green; font-weight: bold;">
+                    <p>Your booking at ${hotelName} has been confirmed!</p>
+                    <p>A confirmation has been sent to your email.</p>
+                </div>
+                <button onclick="document.getElementById('payment-status').innerHTML = ''">Close</button>
+            `;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wanderlust Blog</title>
+  <nav>
+
+  <div>
+    <a href="about.html">NEXT</a>
+  </div>
+</nav>
+
+
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e') no-repeat center center fixed;
+      background-size: cover;
+      color: #fff;
+      animation: fadeIn 2s ease-in;
+    }
+    nav a {
+            text-decoration: none;
+            color: #006994;
+            margin: 0 15px;
+            font-weight: 600;
+            transition: all 0.3s;
+            position: relative;
+        }
+        
+        nav a:hover {
+            color: #003d66;
+        }
+        
+        nav a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 5px;
+            right: 0;
+            background-color: #006994;
+            transition: width 0.3s;
+        }
+        
+        nav a:hover::after {
+            width: 100%;
+        }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    header {
+      position: relative;
+      text-align: center;
+      padding: 2rem;
+      background: linear-gradient(to right, #2980b9, #6dd5fa);
+      color: white;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .auth-buttons {
+      position: absolute;
+      top: 1rem;
+      right: 2rem;
+    }
+
+    .auth-buttons button {
+      margin-left: 0.5rem;
+      padding: 0.5rem 1rem;
+      background: #fff;
+      color: #2980b9;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .form-section {
+      background: rgba(255, 255, 255, 0.95);
+      color: #333;
+      max-width: 600px;
+      margin: 2rem auto;
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 0.8rem;
+      margin-bottom: 1rem;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      padding: 0.7rem 1.5rem;
+      background: #3498db;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 2rem;
+      padding: 2rem;
+    }
+
+    .blog-card {
+      background: linear-gradient(to right, #6dd5fa, #ffffff);
+      color: #333;
+      width: 90%;
+      max-width: 600px;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+      animation: fadeInRight 1s ease-in;
+    }
+
+    @keyframes fadeInRight {
+      from {
+        opacity: 0;
+        transform: translateX(100px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    .blog-card img {
+      width: 100%;
+      height: auto;
+      max-height: 400px;
+      object-fit: contain;
+    }
+
+    .blog-content {
+      padding: 1rem;
+    }
+
+    .blog-meta {
+      font-size: 0.9rem;
+      color: #555;
+      margin-bottom: 0.5rem;
+    }
+
+    .blog-buttons, .comments {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      padding: 0.5rem;
+      background: #f0f0f0;
+    }
+
+    .comment-box {
+      padding: 0.5rem 1rem;
+    }
+
+    .comment-box input {
+      width: 80%;
+      padding: 0.4rem;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    .comment-box button {
+      padding: 0.4rem 0.7rem;
+      margin-left: 0.5rem;
+    }
+
+    /* Popup styles */
+    .popup {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.5);
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    .popup-content {
+      background: white;
+      padding: 2rem;
+      border-radius: 10px;
+      max-width: 400px;
+      width: 90%;
+      color: #333;
+      text-align: center;
+    }
+
+    .popup-content h2 {
+      margin-bottom: 1rem;
+    }
+
+    .popup-content input {
+      margin: 0.5rem 0;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="auth-buttons">
+      <button onclick="showLoginPopup()">Login</button>
+      <button>Sign Up</button>
+    </div>
+    <h1>🌍 Wanderlust Travel Blog</h1>
+    <p>Share your journeys with the world</p>
+  </header>
+
+  <section class="form-section">
+    <h2>Post a New Blog</h2>
+    <form id="blogForm">
+      <input type="text" id="title" placeholder="Blog Title" required />
+      <input type="text" id="destination" placeholder="Destination" required />
+      <input type="file" id="imageInput" accept="image/*" required />
+      <textarea id="guide" rows="4" placeholder="Your travel experience..." required></textarea>
+      <button type="submit">Post Blog</button>
+    </form>
+  </section>
+
+  <main class="container" id="blogContainer"></main>
+
+  <!-- Login Popup -->
+  <div class="popup" id="loginPopup">
+    <div class="popup-content">
+      <h2>Login</h2>
+      <input type="email" placeholder="Email" required><br>
+      <input type="password" placeholder="Password" required><br>
+      <button onclick="hideLoginPopup()">Login</button>
+    </div>
+  </div>
+
+  <script>
+    const blogForm = document.getElementById("blogForm");
+    const blogContainer = document.getElementById("blogContainer");
+
+    blogForm.addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      const title = document.getElementById("title").value;
+      const destination = document.getElementById("destination").value;
+      const guide = document.getElementById("guide").value;
+      const imageFile = document.getElementById("imageInput").files[0];
+
+      const reader = new FileReader();
+      reader.onload = function () {
+        const imageURL = reader.result;
+
+        const card = document.createElement("div");
+        card.className = "blog-card";
+        card.innerHTML = `
+          <img src="${imageURL}" alt="User Image">
+          <div class="blog-content">
+            <h3>${title}</h3>
+            <div class="blog-meta">📍 ${destination}</div>
+            <p>${guide}</p>
+          </div>
+          <div class="blog-buttons">
+            <button onclick="likePost(this)">❤️ Like (<span>0</span>)</button>
+            <button onclick="toggleComments(this)">💬 Comment</button>
+            <button onclick="deletePost(this)">🚮 Delete</button>
+          </div>
+          <div class="comments" style="display:none">
+            <div class="comment-list"></div>
+            <div class="comment-box">
+              <input type="text" placeholder="Write a comment...">
+              <button onclick="postComment(this)">Post</button>
+            </div>
+          </div>`;
+
+        blogContainer.prepend(card);
+        blogForm.reset();
+      };
+
+      if (imageFile) {
+        reader.readAsDataURL(imageFile);
+      }
+    });
+
+    function likePost(btn) {
+      const countSpan = btn.querySelector("span");
+      let count = parseInt(countSpan.textContent);
+      countSpan.textContent = count + 1;
+    }
+
+    function deletePost(btn) {
+      if (confirm("Are you sure to delete this blog?")) {
+        const card = btn.closest(".blog-card");
+        card.remove();
+      }
+    }
+
+    function toggleComments(btn) {
+      const comments = btn.closest(".blog-card").querySelector(".comments");
+      comments.style.display = comments.style.display === "none" ? "block" : "none";
+    }
+
+    function postComment(btn) {
+      const commentBox = btn.previousElementSibling;
+      const text = commentBox.value;
+      if (text.trim() === "") return;
+      const commentList = btn.closest(".comments").querySelector(".comment-list");
+      const newComment = document.createElement("p");
+      newComment.textContent = text;
+      commentList.appendChild(newComment);
+      commentBox.value = "";
+    }
+
+    function showLoginPopup() {
+      document.getElementById("loginPopup").style.display = "flex";
+    }
+
+    function hideLoginPopup() {
+      document.getElementById("loginPopup").style.display = "none";
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,999 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luxury Hotel - Book Hotels</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Base Styles */
+        :root {
+            --primary-color: #0066cc;
+            --secondary-color: #e67e22;
+            --dark-color: #222;
+            --light-color: #f9f9f9;
+            --shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+    font-family: 'Arial', sans-serif;
+    line-height: 1.6;
+    color: #333;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    /* New sophisticated dark marble background */
+    background-image: url('https://galeriemagazine.com/wp-content/uploads/2019/02/136402447.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    position: relative;
+    overflow-x: hidden;
+}
+
+        /* Header Animation */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Typography */
+        h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--dark-color);
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: fadeIn 1s ease-out;
+        }
+
+        h2 {
+            font-size: 2rem;
+            color: #444;
+            margin: 40px 0 20px;
+            border-bottom: 2px solid #ddd;
+            padding-bottom: 10px;
+            position: relative;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+        }
+
+        p {
+            margin-bottom: 20px;
+            color: #555;
+        }
+
+        strong {
+            font-weight: 700;
+            color: var(--dark-color);
+        }
+
+        hr {
+            border: 0;
+            height: 1px;
+            background: #ddd;
+            margin: 40px 0;
+        }
+
+        /* Navigation */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            margin-bottom: 30px;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 30px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark-color);
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary-color);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Room Listing */
+        .rooms-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .room {
+            background: white;
+            padding: 25px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .room::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 0;
+            background: linear-gradient(to bottom, var(--primary-color), var(--secondary-color));
+            transition: height 0.3s ease;
+        }
+
+        .room:hover::before {
+            height: 100%;
+        }
+
+        .room:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow);
+        }
+
+        .room-title {
+            font-size: 1.5rem;
+            margin: 0 0 10px;
+            color: var(--primary-color);
+            transition: color 0.3s;
+        }
+
+        .room:hover .room-title {
+            color: var(--secondary-color);
+        }
+
+        .room-location {
+            color: #666;
+            font-style: italic;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+
+        .room-location i {
+            margin-right: 8px;
+            color: var(--primary-color);
+        }
+
+        .room-features {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+
+        .room-features li {
+            margin-bottom: 5px;
+            position: relative;
+            list-style: none;
+            padding-left: 25px;
+        }
+
+        .room-features li::before {
+            content: '\f00c';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            left: 0;
+            color: var(--primary-color);
+        }
+
+        .room-price {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: var(--secondary-color);
+            margin-top: 15px;
+            text-align: right;
+        }
+
+        .book-btn {
+            display: inline-block;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 10px 20px;
+            border-radius: 30px;
+            text-decoration: none;
+            margin-top: 15px;
+            font-weight: bold;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            text-align: center;
+        }
+
+        .book-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        /* Gallery Section */
+        .gallery {
+            margin: 50px 0;
+        }
+
+        .gallery-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .gallery-item {
+            height: 200px;
+            overflow: hidden;
+            border-radius: 5px;
+            position: relative;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .gallery-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0,0,0,0.7);
+            color: white;
+            padding: 10px;
+            transform: translateY(100%);
+            transition: transform 0.3s;
+        }
+
+        .gallery-item:hover .gallery-caption {
+            transform: translateY(0);
+        }
+
+        /* Testimonials */
+        .testimonials {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            margin: 50px 0;
+            box-shadow: var(--shadow);
+        }
+
+        .testimonial-slider {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .testimonial {
+            padding: 20px;
+            text-align: center;
+            transition: all 0.5s;
+        }
+
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .testimonial-text::before,
+        .testimonial-text::after {
+            content: '"';
+            font-size: 2rem;
+            color: var(--primary-color);
+            opacity: 0.5;
+        }
+
+        .testimonial-author {
+            font-weight: bold;
+            color: var(--secondary-color);
+        }
+
+        .testimonial-rating {
+            color: #f1c40f;
+            margin-top: 10px;
+        }
+
+        /* Contact Info */
+        .contact {
+            margin-top: 40px;
+            font-size: 1.1rem;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+        }
+
+        .contact-info {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-top: 20px;
+        }
+
+        .contact-item {
+            flex: 1;
+            min-width: 200px;
+            display: flex;
+            align-items: center;
+        }
+
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-size: 1.2rem;
+        }
+
+        /* Footer */
+        footer {
+            margin-top: 50px;
+            padding: 30px 0;
+            text-align: center;
+            background: var(--dark-color);
+            color: white;
+            border-radius: 10px;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+        nav a {
+            text-decoration: none;
+            color: #006994;
+            margin: 0 15px;
+            font-weight: 600;
+            transition: all 0.3s;
+            position: relative;
+        }
+        
+        nav a:hover {
+            color: #003d66;
+        }
+        
+        nav a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: #006994;
+            transition: width 0.3s;
+        }
+        
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 10px;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .social-links a:hover {
+            background: var(--primary-color);
+            transform: translateY(-3px);
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.3s;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            max-width: 500px;
+            width: 90%;
+            position: relative;
+            animation: slideDown 0.3s;
+        }
+
+        @keyframes slideDown {
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #777;
+            transition: color 0.3s;
+        }
+
+        .close-modal:hover {
+            color: var(--primary-color);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-family: inherit;
+        }
+
+        .form-submit {
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+            width: 100%;
+        }
+
+        .form-submit:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            h2 {
+                font-size: 1.5rem;
+            }
+            
+            .room {
+                padding: 15px;
+            }
+
+            .nav-links {
+                display: none;
+            }
+        }
+
+        /* Loading Animation */
+        .loader {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255,255,255,0.8);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .loader-content {
+            text-align: center;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid var(--primary-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Notification */
+        .notification {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--primary-color);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 5px;
+            box-shadow: var(--shadow);
+            transform: translateX(200%);
+            transition: transform 0.3s;
+            z-index: 1000;
+        }
+
+        .notification.show {
+            transform: translateX(0);
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="#" class="logo">BOOM HOTELS</a>
+        <div>
+            <a href="blog.html">NEXT</a>
+        </div>
+        <ul class="nav-links">
+            <li><a href="#rooms">Rooms</a></li>
+            <li><a href="#gallery">Gallery</a></li>
+            <li><a href="#testimonials">Testimonials</a></li>
+            <li><a href="#contact">Contact</a></li>
+            <li><a href="travleGuidence.html">Travel Guidence</a></li>
+
+        </ul>
+    </nav>
+
+    <header>
+        <h1>Experience Luxury Redefined</h1>
+        <p>Welcome to Boom Hotels, where elegance meets comfort. Our properties are designed to provide an unforgettable experience with world-class amenities and exceptional service.</p>
+        
+        <p><strong>Boom Hotels</strong><br>
+        <strong>Since 1985</strong></p>
+    </header>
+
+    <hr>
+
+    <section id="rooms">
+        <h2>Our Hotel Rooms</h2>
+        <p>Each of our rooms is meticulously designed to provide the ultimate in comfort and luxury. Browse our selection to find your perfect stay.</p>
+
+        <div class="rooms-container">
+            <div class="room">
+                <h3 class="room-title">Mester Boom</h3>
+                <p class="room-location"><i class="fas fa-map-marker-alt"></i> City, Bandus urban station</p>
+                <ul class="room-features">
+                    <li>Spacious living area</li>
+                    <li>King size bed</li>
+                    <li>Premium bathroom amenities</li>
+                    <li>High-speed WiFi</li>
+                    <li>24/7 room service</li>
+                </ul>
+                <div class="room-price">$299/night</div>
+                <button class="book-btn" data-room="Mester Boom">Book Now</button>
+            </div>
+
+            <div class="room">
+                <h3 class="room-title">Skin Sushi</h3>
+                <p class="room-location"><i class="fas fa-map-marker-alt"></i> City, Bandus urban station</p>
+                <ul class="room-features">
+                    <li>Separate living room</li>
+                    <li>Two queen beds</li>
+                    <li>Deep soaking tub</li>
+                    <li>Smart TV with streaming</li>
+                    <li>Complimentary minibar</li>
+                </ul>
+                <div class="room-price">$349/night</div>
+                <button class="book-btn" data-room="Skin Sushi">Book Now</button>
+            </div>
+
+            <div class="room">
+                <h3 class="room-title">Ultra Deluxe</h3>
+                <p class="room-location"><i class="fas fa-map-marker-alt"></i> City, Bandus urban station</p>
+                <ul class="room-features">
+                    <li>Private balcony</li>
+                    <li>California king bed</li>
+                    <li>Rainfall shower</li>
+                    <li>Personal butler service</li>
+                    <li>Access to executive lounge</li>
+                </ul>
+                <div class="room-price">$499/night</div>
+                <button class="book-btn" data-room="Ultra Deluxe">Book Now</button>
+            </div>
+
+            <div class="room">
+                <h3 class="room-title">Neghib Boom</h3>
+                <p class="room-location"><i class="fas fa-map-marker-alt"></i> City, Bandus urban station</p>
+                <ul class="room-features">
+                    <li>Two-bedroom suite</li>
+                    <li>Private jacuzzi</li>
+                    <li>Gourmet kitchen</li>
+                    <li>Panoramic city views</li>
+                    <li>Luxury vehicle service</li>
+                </ul>
+                <div class="room-price">$699/night</div>
+                <button class="book-btn" data-room="Neghib Boom">Book Now</button>
+            </div>
+        </div>
+    </section>
+
+    <section id="gallery" class="gallery">
+        <h2>Gallery</h2>
+        <p>Take a visual tour of our exquisite accommodations and facilities.</p>
+        
+        <div class="gallery-container">
+            <div class="gallery-item">
+                <img src="https://tse4.mm.bing.net/th?id=OIP._HQwMVxIcFbWLs4__UvzUgHaE8&pid=Api&P=0&h=220" alt="Hotel Lobby">
+                <div class="gallery-caption">Grand Lobby</div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://tse1.mm.bing.net/th?id=OIP.HbkdC0RrpUtKUcvgZn2_CgHaE8&pid=Api&P=0&h=220" alt="Deluxe Room">
+                <div class="gallery-caption">Deluxe Room</div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://tse1.mm.bing.net/th?id=OIP.kl66QWeFV6kUlNMUSqbcNAHaE8&pid=Api&P=0&h=220" alt="Infinity Pool">
+                <div class="gallery-caption">Infinity Pool</div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://tse3.mm.bing.net/th?id=OIP.VgyCtu0ALnfxGrccySsQQAHaFK&pid=Api&P=0&h=220" alt="Fine Dining">
+                <div class="gallery-caption">Fine Dining</div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://tse4.mm.bing.net/th?id=OIP.dcWDYLi7q7Gwz05AdPKSpQHaEK&pid=Api&P=0&h=220" alt="Spa Center">
+                <div class="gallery-caption">Spa Center</div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://tse2.mm.bing.net/th?id=OIP.aOxGxAekzEpnZN5M6S7N-QHaEL&pid=Api&P=0&h=220" alt="Fitness Center">
+                <div class="gallery-caption">Fitness Center</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="testimonials" class="testimonials">
+        <h2>Guest Testimonials</h2>
+        <p>Hear what our valued guests have to say about their experience.</p>
+        
+        <div class="testimonial-slider">
+            <div class="testimonial active">
+                <div class="testimonial-text">
+                    The attention to detail at Boom Hotels is unparalleled. From the moment we arrived, every need was anticipated and met with a smile.
+                </div>
+                <div class="testimonial-author">Sarah Johnson</div>
+                <div class="testimonial-rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </div>
+            </div>
+            <div class="testimonial">
+                <div class="testimonial-text">
+                    The Ultra Deluxe suite exceeded all our expectations. The views were breathtaking and the service impeccable.
+                </div>
+                <div class="testimonial-author">Michael Chen</div>
+                <div class="testimonial-rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star-half-alt"></i>
+                </div>
+            </div>
+            <div class="testimonial">
+                <div class="testimonial-text">
+                    We've stayed at many luxury hotels worldwide, but Boom Hotels stands out for its unique blend of modern comfort and classic elegance.
+                </div>
+                <div class="testimonial-author">Emma Rodriguez</div>
+                <div class="testimonial-rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="contact">
+        <h2>Contact Us</h2>
+        <p>We're here to assist you with any inquiries or special requests.</p>
+        
+        <div class="contact-info">
+            <div class="contact-item">
+                <div class="contact-icon">
+                    <i class="fas fa-phone-alt"></i>
+                </div>
+                <div>
+                    <strong>Reservations</strong><br>
+                    (+04) 142 22 23 78
+                </div>
+            </div>
+            <div class="contact-item">
+                <div class="contact-icon">
+                    <i class="fas fa-envelope"></i>
+                </div>
+                <div>
+                    <strong>Email</strong><br>
+                    reservations@boomhotels.com
+                </div>
+            </div>
+            <div class="contact-item">
+                <div class="contact-icon">
+                    <i class="fas fa-map-marker-alt"></i>
+                </div>
+                <div>
+                    <strong>Address</strong><br>
+                    123 Luxury Avenue, Bandus City
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="social-links">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+        <p>&copy; 2023 Boom Hotels. All rights reserved.</p>
+    </footer>
+
+    <!-- Booking Modal -->
+    <div class="modal" id="bookingModal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Book Your Stay</h2>
+            <form id="bookingForm">
+                <input type="hidden" id="selectedRoom">
+                <div class="form-group">
+                    <label for="name">Full Name</label>
+                    <input type="text" id="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" id="phone" required>
+                </div>
+                <div class="form-group">
+                    <label for="checkin">Check-in Date</label>
+                    <input type="date" id="checkin" required>
+                </div>
+                <div class="form-group">
+                    <label for="checkout">Check-out Date</label>
+                    <input type="date" id="checkout" required>
+                </div>
+                <div class="form-group">
+                    <label for="guests">Number of Guests</label>
+                    <select id="guests" required>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5+">5+</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="requests">Special Requests</label>
+                    <textarea id="requests" rows="3"></textarea>
+                </div>
+                <button type="submit" class="form-submit">Complete Booking</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Loading Indicator -->
+    <div class="loader" id="loader">
+        <div class="loader-content">
+            <div class="spinner"></div>
+            <p>Processing your request...</p>
+        </div>
+    </div>
+
+    <!-- Notification -->
+    <div class="notification" id="notification">
+        Booking request submitted successfully!
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Smooth scrolling for navigation links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
+
+            // Modal functionality
+            const modal = document.getElementById('bookingModal');
+            const bookingForm = document.getElementById('bookingForm');
+            const closeModal = document.querySelector('.close-modal');
+            const bookButtons = document.querySelectorAll('.book-btn');
+            const selectedRoomInput = document.getElementById('selectedRoom');
+            const loader = document.getElementById('loader');
+            const notification = document.getElementById('notification');
+
+            // Open modal when book button is clicked
+            bookButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const roomName = this.getAttribute('data-room');
+                    selectedRoomInput.value = roomName;
+                    modal.style.display = 'flex';
+                    document.body.style.overflow = 'hidden';
+                });
+            });
+
+            // Close modal
+            closeModal.addEventListener('click', function() {
+                modal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            });
+
+            // Close modal when clicking outside
+            window.addEventListener('click', function(e) {
+                if (e.target === modal) {
+                    modal.style.display = 'none';
+                    document.body.style.overflow = 'auto';
+                }
+            });
+
+            // Form submission
+            bookingForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Show loader
+                loader.style.display = 'flex';
+                modal.style.display = 'none';
+                
+                // Simulate API call
+                setTimeout(function() {
+                    // Hide loader
+                    loader.style.display = 'none';
+                    
+                    // Show notification
+                    notification.classList.add('show');
+                    
+                    // Hide notification after 3 seconds
+                    setTimeout(function() {
+                        notification.classList.remove('show');
+                    }, 3000);
+                    
+                    // Reset form
+                    bookingForm.reset();
+                    document.body.style.overflow = 'auto';
+                }, 2000);
+            });
+
+            // Testimonial slider
+            const testimonials = document.querySelectorAll('.testimonial');
+            let currentTestimonial = 0;
+            
+            function showTestimonial(index) {
+                testimonials.forEach(testimonial => {
+                    testimonial.classList.remove('active');
+                });
+                testimonials[index].classList.add('active');
+            }
+            
+            function nextTestimonial() {
+                currentTestimonial = (currentTestimonial + 1) % testimonials.length;
+                showTestimonial(currentTestimonial);
+            }
+            
+            // Auto-rotate testimonials every 5 seconds
+            setInterval(nextTestimonial, 5000);
+
+            // Animate elements when they come into view
+            const animateOnScroll = function() {
+                const elements = document.querySelectorAll('.room, .gallery-item, .contact-item');
+                
+                elements.forEach(element => {
+                    const elementPosition = element.getBoundingClientRect().top;
+                    const windowHeight = window.innerHeight;
+                    
+                    if (elementPosition < windowHeight - 100) {
+                        element.style.opacity = '1';
+                        element.style.transform = 'translateY(0)';
+                    }
+                });
+            };
+            
+            // Set initial state for animation
+            document.querySelectorAll('.room, .gallery-item, .contact-item').forEach(element => {
+                element.style.opacity = '0';
+                element.style.transform = 'translateY(20px)';
+                element.style.transition = 'all 0.5s ease';
+            });
+            
+            // Add scroll event listener
+            window.addEventListener('scroll', animateOnScroll);
+            
+            // Trigger once on load
+            animateOnScroll();
+        });
+    </script>
+</body>
+</html>
